@@ -64,28 +64,61 @@ export default function AddProduct() {
     };
 
     return (
-            <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Name" value={form.name} onChange={update('name')} />
-                <select value={form.collection} onChange={update('collection')}>
+        <form onSubmit={handleSubmit}>
+            <div className="form-field">
+                <label htmlFor="name">Name</label>
+                <input id="name" type="text" placeholder="Name" value={form.name} onChange={update('name')} />
+                {errors.name && <span className="error">{errors.name}</span>}
+            </div>
+            <div className="form-field">
+                <label htmlFor="collection">Collection</label>
+                <select id="collection" value={form.collection} onChange={update('collection')}>
                     {collections.map((collection) => (
-                        <option key={collection}>{collection}</option>
-                    ))}
+                        <option key={collection} value={collection}>{collection}</option>
+                     ))}
                 </select>
-                <input type="number" placeholder="Price" value={form.price} onChange={update('price')} />
-                <select value={form.frameType} onChange={update('frameType')}>
-                    {frameTypes.map((frameType) => (
-                        <option key={frameType}>{frameType}</option>
-                    ))}
+                {errors.collection && <span className="error">{errors.collection}</span>}
+            </div>
+            <div className="form-field">
+                <label htmlFor="price">Price</label>
+                {errors.price && <span className="error">{errors.price}</span>}
+                <input id="price" type="number" placeholder="Price" value={form.price} onChange={update('price')} />
+                {errors.price && <span className="error">{errors.price}</span>}
+            </div>
+            <div className="form-field">
+                <label htmlFor="frameType">Frame Type</label>
+                <select id="frameType" value={form.frameType} onChange={update('frameType')}>
+                {frameTypes.map((frameType) => (
+                    <option key={frameType}>{frameType}</option>
+                 ))}
                 </select>
-                <select value={form.shape} onChange={update('shape')}>
+                {errors.frameType && <span className="error">{errors.frameType}</span>}
+            </div>
+            <div className="form-field">
+                <label htmlFor="shape">Shape</label>
+                <select id="shape" value={form.shape} onChange={update('shape')}>
                     {shapes.map((shape) => (
                         <option key={shape}>{shape}</option>
                     ))}
                 </select>
-                <input type="text" placeholder="Size" value={form.size} onChange={update('size')} />
-                <input type="text" placeholder="Color" value={form.color} onChange={update('color')} />
-                <button type="submit">Add Product</button>
-            </form>
-            {showToast && <p>Product added successfully!</p>}
+                {errors.shape && <span className="error">{errors.shape}</span>}
+            </div>
+            <div className="form-row">
+                <div className="form-field">
+                    <label htmlFor="size">Size</label>
+                    <input id="size" type="text" placeholder="Size" value={form.size} onChange={update('size')} />
+                        {errors.size && <span className="error">{errors.size}</span>}
+                </div>
+                <div className="form-field">
+                    <label htmlFor="color">Color</label>
+                    <input id="color" type="text" placeholder="Color" value={form.color} onChange={update('color')} />
+                        {errors.color && <span className="error">{errors.color}</span>}
+                </div>
+            </div>
+            <div className="form-actions">
+                <button type="submit" className="primary-button">Add Product</button>
+            </div>
+            {showToast && (<div className="success-toast">Product added successfully!</div>)}
+        </form>
     );
 }
