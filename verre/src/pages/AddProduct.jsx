@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProducts } from '../components/useProduct';
 import '../components/AddProduct.css';
+import Navbar from '../components/Navbar';
 
 const collections = ['Classic', 'Modern Minimalist', 'Retro & Vintage', 'Sports Active'];
 const frameTypes = ['Full-Rim', 'Half-Rim', 'Rimless'];
@@ -60,17 +61,20 @@ export default function AddProduct() {
         };
 
         addProduct(product);
+        console.log('Product added successfully',product);
         setShowToast(true);
-        setTimeout(() => navigate(`/products/${product.id}`), 1000);
+        setTimeout(() => navigate(`/products`), 1000);
     };
 
     const handleCancel = () => {
-        navigate('/products');
+        navigate('/addproduct');
+        setForm(emptyForm);
         setShowToast(false);
     }
 
     return (
         <div className="add-product-page">
+            <Navbar />
             <div className="page-heading">
                 <h1>Add a product</h1>
                 <p>Fill out the form below to add a new product to the catalog.</p>

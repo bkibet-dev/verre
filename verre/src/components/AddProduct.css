@@ -10,19 +10,19 @@ body {
 }
 
 .add-product-page {
-    width: min(1120px, calc(100% - 96px));
-    margin: 80px auto 140px;
+    width: min(1000px, calc(70% - 96px));
+    margin: 40px auto 140px;
     flex: 1;
 }
 
 .page-heading {
-    margin-bottom: 45px;
+    margin-bottom: 30px;
 }
 
 .page-heading h1 {
     margin: 0 0 12px;
     color: #30445c;
-    font-size: 54px;
+    font-size: 50px;
     line-height: 1;
     letter-spacing: -1.5px;
 }
@@ -30,14 +30,14 @@ body {
 .page-heading p {
     margin: 0;
     color: #52758c;
-    font-size: 21px;
+    font-size: 20px;
 }
 
 .product-form {
     background: #ffffff;
     border: 1px solid #ddd6ce;
     border-radius: 4px;
-    padding: 60px;
+    padding: 50px;
 }
 
 .form-row {

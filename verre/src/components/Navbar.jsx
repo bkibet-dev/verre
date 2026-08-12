@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import './Navbar.css';
 
 export default function Navbar() {
     return (
@@ -14,7 +15,7 @@ export default function Navbar() {
                     Catalog
                 </NavLink>
                 <NavLink
-                    to="/"
+                    to="/addproduct"
                     className="header-add-button"
                 >
                     Add product
