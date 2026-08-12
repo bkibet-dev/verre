@@ -64,7 +64,6 @@ export default function AddProduct() {
     };
 
     return (
-        <>
             <form onSubmit={handleSubmit}>
                 <input type="text" placeholder="Name" value={form.name} onChange={update('name')} />
                 <select value={form.collection} onChange={update('collection')}>
@@ -88,6 +87,5 @@ export default function AddProduct() {
                 <button type="submit">Add Product</button>
             </form>
             {showToast && <p>Product added successfully!</p>}
-        </>
     );
 }
