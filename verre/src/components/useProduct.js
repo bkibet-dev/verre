@@ -10,8 +10,26 @@ export function useProducts() {
         ]);
     };
 
+    const updateProduct = (id, updateProduct) => {
+        setProducts((currentProducts) => 
+            currentProducts.map((product) =>
+                product.id === id
+                    ? {...product, ...updateProduct }
+                    : product
+                )
+            );
+    };
+
+    const deleteProduct = (id) => {
+        setProducts((currentProducts) =>
+            currentProducts.filter((product) => product.id !== id)
+        );
+    };
+
     return {
         products,
-        addProduct
+        addProduct,
+        updateProduct,
+        deleteProduct
     };
 }
