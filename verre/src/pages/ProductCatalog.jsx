@@ -1,6 +1,6 @@
 import Navbar from '../components/Navbar';
-import SearchBar from '../components/products/SearchBar';
-import ProductList from '../components/products/ProductList';
+import SearchBar from '../components/SearchBar';
+import ProductList from '../components/ProductList';
 
 function ProductCatalog() {
   return (

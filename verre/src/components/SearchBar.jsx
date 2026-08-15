@@ -1,4 +1,4 @@
-import { useProducts } from '../context/ProductsContext';
+import { useProducts } from '../context/ProductContext';
 
 export default function SearchBar() {
   const { searchTerm, setSearchTerm } = useProducts();

@@ -1,4 +1,4 @@
-import { useProducts } from '../context/ProductsContext';
+import { useProducts } from '../context/ProductContext';
 import ProductCard from './ProductCard';
 
 export default function ProductList() {
