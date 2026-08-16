@@ -1,17 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { ProductProvider } from './context/ProductContext';
+import ProductCatalog from './pages/ProductCatalog';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <>
-      
-    </>
-  )
+    <ProductProvider>
+      <Routes>
+        <Route path="/products" element={<ProductCatalog />} />
+        <Route path="*" element={<Navigate to="/products" replace />} />
+      </Routes>
+    </ProductProvider>
+  );
 }
 
-export default App
