@@ -73,8 +73,9 @@ export default function AddProduct() {
     }
 
     return (
+        <>
+        <Navbar />
         <div className="add-product-page">
-            <Navbar />
             <div className="page-heading">
                 <h1>Add a product</h1>
                 <p>Fill out the form below to add a new product to the catalog.</p>
@@ -137,5 +138,6 @@ export default function AddProduct() {
                 {showToast && (<div className="success-toast">Product added successfully!</div>)}
             </form>
         </div>
+        </>
     );
 }
