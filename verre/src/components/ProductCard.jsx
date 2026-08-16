@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useProducts } from '../context/ProductContext';
+import './ProductCard.css';
 
 export default function ProductCard({ product }) {
   const { updateProduct, deleteProduct } = useProducts();
