@@ -1,6 +1,8 @@
 .admin-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 20px 32px;
     border-bottom: 1px solid #e2dcd5;
     background: #f5f0eb;
 }

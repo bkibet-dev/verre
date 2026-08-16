@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useProducts } from '../components/useProduct';
+import { useProducts } from '../context/ProductContext';
 import '../components/AddProduct.css';
 import Navbar from '../components/Navbar';
 

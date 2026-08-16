@@ -1,5 +1,6 @@
 import { useProducts } from '../context/ProductContext';
 import ProductCard from './ProductCard';
+import './ProductList.css';
 
 export default function ProductList() {
   const { products, searchTerm } = useProducts();
