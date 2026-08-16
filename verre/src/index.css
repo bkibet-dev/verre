@@ -23,18 +23,24 @@ a {
   width: 100%;
   min-height: 80px;
   padding: 0 6%;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   background: #f7f5f0;
+
   border-bottom: 1px solid #dedbd4;
 }
 
 .navbar-logo a {
   font-family: Georgia, "Times New Roman", serif;
+
   font-size: 26px;
   font-weight: bold;
+
   letter-spacing: 5px;
+
   color: #242424;
 }
 
@@ -47,6 +53,7 @@ a {
 .navbar-links a {
   font-size: 14px;
   color: #3d3a36;
+
   transition: opacity 0.2s ease;
 }
 
@@ -56,11 +63,16 @@ a {
 
 .navbar-action a {
   display: inline-block;
+
   padding: 11px 20px;
+
   border: 1px solid #242424;
   border-radius: 30px;
+
   font-size: 13px;
+
   background: transparent;
+
   transition: all 0.2s ease;
 }
 
@@ -71,33 +83,45 @@ a {
 
 .hero {
   min-height: 620px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   padding: 90px 6%;
+
   text-align: center;
 }
 
 .hero-content {
   width: 100%;
   max-width: 900px;
+
   margin: 0 auto;
 }
 
 .hero-label {
   margin-bottom: 25px;
+
   font-size: 12px;
   font-weight: bold;
+
   letter-spacing: 4px;
+
   color: #6d6962;
 }
 
 .hero h1 {
   margin-bottom: 35px;
+
   font-family: Georgia, "Times New Roman", serif;
+
   font-size: clamp(55px, 8vw, 100px);
+
   font-weight: normal;
+
   line-height: 0.98;
+
   letter-spacing: -3px;
 }
 
@@ -105,23 +129,41 @@ a {
   font-style: italic;
 }
 
+
+/* DESCRIPTION */
+
 .hero-description {
   max-width: 650px;
+
   margin: 0 auto 35px;
+
   color: #68645e;
+
   font-size: 16px;
+
   line-height: 1.8;
 }
 
+
+/* HERO BUTTON */
+
 .hero-button {
   display: inline-flex;
+
   align-items: center;
+
   gap: 12px;
+
   padding: 14px 25px;
+
   background: #242424;
+
   color: #ffffff;
+
   border-radius: 30px;
+
   font-size: 14px;
+
   transition: opacity 0.2s ease;
 }
 
@@ -131,33 +173,46 @@ a {
 
 .footer {
   min-height: 180px;
+
   padding: 45px 6%;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   gap: 30px;
+
   background: #242424;
+
   color: #ffffff;
 }
 
+
 .footer-brand {
   font-family: Georgia, "Times New Roman", serif;
+
   font-size: 25px;
   font-weight: bold;
+
   letter-spacing: 5px;
 }
 
+
 .footer-tagline {
   color: #d0ccc4;
+
   font-size: 14px;
 }
 
+
 .footer-copy {
   color: #9c9891;
+
   font-size: 12px;
 }
 
 @media (max-width: 900px) {
+
   .navbar {
     padding: 0 5%;
   }
@@ -168,6 +223,7 @@ a {
 
   .hero {
     min-height: 550px;
+
     padding: 70px 5%;
   }
 
@@ -181,62 +237,87 @@ a {
 }
 
 @media (max-width: 650px) {
+
   .navbar {
     min-height: 70px;
+
     padding: 15px 5%;
+
     flex-wrap: wrap;
+
     gap: 15px;
   }
+
 
   .navbar-logo {
     width: 100%;
     text-align: center;
   }
 
+
   .navbar-links {
     width: 100%;
+
     justify-content: center;
+
     gap: 20px;
   }
+
 
   .navbar-links a {
     font-size: 13px;
   }
 
+
   .navbar-action {
     width: 100%;
+
     display: flex;
+
     justify-content: center;
   }
+
 
   .navbar-action a {
     padding: 9px 17px;
   }
 
+
   .hero {
     min-height: 500px;
+
     padding: 60px 5%;
   }
 
+
   .hero-label {
     font-size: 10px;
+
     letter-spacing: 3px;
   }
 
+
   .hero h1 {
     font-size: 52px;
+
     letter-spacing: -2px;
   }
 
+
   .hero-description {
     font-size: 14px;
+
     line-height: 1.7;
   }
 
+
   .footer {
     flex-direction: column;
+
     align-items: center;
+
     text-align: center;
+
     padding: 45px 5%;
   }
 }
