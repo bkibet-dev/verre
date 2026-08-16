@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Hero() {
   return (
     <section className="hero">
@@ -21,9 +23,9 @@ function Hero() {
           rather than scrolling through a spreadsheet.
         </p>
 
-        <a href="/products" className="hero-button">
+        <Link to="/products" className="hero-button">
           Explore Collection →
-        </a>
+        </Link>
 
       </div>
 
