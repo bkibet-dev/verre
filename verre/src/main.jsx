@@ -7,10 +7,6 @@ import { ProductsProvider } from './context/ProductsContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <ProductsProvider>
-        <App />
-      </ProductsProvider>
-    </BrowserRouter>
+      <App />
   </StrictMode>,
 )
