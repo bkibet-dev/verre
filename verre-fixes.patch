@@ -1,0 +1,2037 @@
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/App.css b/verre/src/App.css
+--- a/verre/src/App.css	2026-08-16 21:05:57.000000000 +0000
++++ b/verre/src/App.css	1970-01-01 00:00:00.000000000 +0000
+@@ -1,184 +0,0 @@
+-.counter {
+-  font-size: 16px;
+-  padding: 5px 10px;
+-  border-radius: 5px;
+-  color: var(--accent);
+-  background: var(--accent-bg);
+-  border: 2px solid transparent;
+-  transition: border-color 0.3s;
+-  margin-bottom: 24px;
+-
+-  &:hover {
+-    border-color: var(--accent-border);
+-  }
+-  &:focus-visible {
+-    outline: 2px solid var(--accent);
+-    outline-offset: 2px;
+-  }
+-}
+-
+-.hero {
+-  position: relative;
+-
+-  .base,
+-  .framework,
+-  .vite {
+-    inset-inline: 0;
+-    margin: 0 auto;
+-  }
+-
+-  .base {
+-    width: 170px;
+-    position: relative;
+-    z-index: 0;
+-  }
+-
+-  .framework,
+-  .vite {
+-    position: absolute;
+-  }
+-
+-  .framework {
+-    z-index: 1;
+-    top: 34px;
+-    height: 28px;
+-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
+-      scale(1.4);
+-  }
+-
+-  .vite {
+-    z-index: 0;
+-    top: 107px;
+-    height: 26px;
+-    width: auto;
+-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
+-      scale(0.8);
+-  }
+-}
+-
+-#center {
+-  display: flex;
+-  flex-direction: column;
+-  gap: 25px;
+-  place-content: center;
+-  place-items: center;
+-  flex-grow: 1;
+-
+-  @media (max-width: 1024px) {
+-    padding: 32px 20px 24px;
+-    gap: 18px;
+-  }
+-}
+-
+-#next-steps {
+-  display: flex;
+-  border-top: 1px solid var(--border);
+-  text-align: left;
+-
+-  & > div {
+-    flex: 1 1 0;
+-    padding: 32px;
+-    @media (max-width: 1024px) {
+-      padding: 24px 20px;
+-    }
+-  }
+-
+-  .icon {
+-    margin-bottom: 16px;
+-    width: 22px;
+-    height: 22px;
+-  }
+-
+-  @media (max-width: 1024px) {
+-    flex-direction: column;
+-    text-align: center;
+-  }
+-}
+-
+-#docs {
+-  border-right: 1px solid var(--border);
+-
+-  @media (max-width: 1024px) {
+-    border-right: none;
+-    border-bottom: 1px solid var(--border);
+-  }
+-}
+-
+-#next-steps ul {
+-  list-style: none;
+-  padding: 0;
+-  display: flex;
+-  gap: 8px;
+-  margin: 32px 0 0;
+-
+-  .logo {
+-    height: 18px;
+-  }
+-
+-  a {
+-    color: var(--text-h);
+-    font-size: 16px;
+-    border-radius: 6px;
+-    background: var(--social-bg);
+-    display: flex;
+-    padding: 6px 12px;
+-    align-items: center;
+-    gap: 8px;
+-    text-decoration: none;
+-    transition: box-shadow 0.3s;
+-
+-    &:hover {
+-      box-shadow: var(--shadow);
+-    }
+-    .button-icon {
+-      height: 18px;
+-      width: 18px;
+-    }
+-  }
+-
+-  @media (max-width: 1024px) {
+-    margin-top: 20px;
+-    flex-wrap: wrap;
+-    justify-content: center;
+-
+-    li {
+-      flex: 1 1 calc(50% - 8px);
+-    }
+-
+-    a {
+-      width: 100%;
+-      justify-content: center;
+-      box-sizing: border-box;
+-    }
+-  }
+-}
+-
+-#spacer {
+-  height: 88px;
+-  border-top: 1px solid var(--border);
+-  @media (max-width: 1024px) {
+-    height: 48px;
+-  }
+-}
+-
+-.ticks {
+-  position: relative;
+-  width: 100%;
+-
+-  &::before,
+-  &::after {
+-    content: '';
+-    position: absolute;
+-    top: -4.5px;
+-    border: 5px solid transparent;
+-  }
+-
+-  &::before {
+-    left: 0;
+-    border-left-color: var(--border);
+-  }
+-  &::after {
+-    right: 0;
+-    border-right-color: var(--border);
+-  }
+-}
+\ No newline at end of file
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/App.jsx b/verre/src/App.jsx
+--- a/verre/src/App.jsx	2026-08-16 23:05:07.000000000 +0000
++++ b/verre/src/App.jsx	2026-08-17 00:00:43.098931706 +0000
+@@ -1,7 +1,9 @@
+ import { BrowserRouter, Routes, Route } from "react-router-dom";
+ import Home from "./pages/Home";
+-import Collection from "./pages/Collection";
+-import AddProduct from "./pages/AddProduct"; // <-- Capital A and P
++import ProductCatalog from "./pages/ProductCatalog";
++import ProductDetail from "./pages/ProductDetail";
++import EditProduct from "./pages/EditProduct";
++import AddProduct from "./pages/AddProduct";
+ import About from "./pages/About";
+ import Contact from "./pages/Contact";
+ 
+@@ -10,7 +12,9 @@
+     <BrowserRouter>
+       <Routes>
+         <Route path="/" element={<Home />} />
+-        <Route path="/products" element={<Collection />} />
++        <Route path="/products" element={<ProductCatalog />} />
++        <Route path="/products/:id" element={<ProductDetail />} />
++        <Route path="/products/:id/edit" element={<EditProduct />} />
+         <Route path="/addproduct" element={<AddProduct />} />
+         <Route path="/about" element={<About />} />
+         <Route path="/contact" element={<Contact />} />
+@@ -19,4 +23,4 @@
+   );
+ }
+ 
+-export default App;
+\ No newline at end of file
++export default App;
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/components/AddProduct.css b/verre/src/components/AddProduct.css
+--- a/verre/src/components/AddProduct.css	2026-08-16 21:06:10.000000000 +0000
++++ b/verre/src/components/AddProduct.css	2026-08-17 00:03:24.165406002 +0000
+@@ -1,200 +1,223 @@
+-* {
+-    box-sizing: border-box;
+-}
+-
+-body {
+-    margin: 0;
+-    background: #f5f0eb;
+-    color: #30445c;
+-    font-family: Arial, Helvetica, sans-serif;
+-}
+-
+-.add-product-page {
+-    width: min(1000px, calc(70% - 96px));
+-    margin: 40px auto 140px;
+-    flex: 1;
+-}
+-
+-.page-heading {
+-    margin-bottom: 30px;
+-}
+-
+-.page-heading h1 {
+-    margin: 0 0 12px;
+-    color: #30445c;
+-    font-size: 50px;
+-    line-height: 1;
+-    letter-spacing: -1.5px;
+-}
+-
+-.page-heading p {
+-    margin: 0;
+-    color: #52758c;
+-    font-size: 20px;
+-}
+-
+-.product-form {
+-    background: #ffffff;
+-    border: 1px solid #ddd6ce;
+-    border-radius: 4px;
+-    padding: 50px;
+-}
+-
+-.form-row {
+-    display: grid;
+-    grid-template-columns: 1fr 1fr;
+-    gap: 28px;
+-    margin-bottom: 32px;
+-}
+-
+-.form-field {
+-    display: flex;
+-    flex-direction: column;
+-}
+-
+-.form-field.full-width {
+-    grid-column: 1 / -1;
+-}
+-
+-.form-field label {
+-    margin-bottom: 12px;
+-    color: #52758c;
+-    font-size: 20px;
+-}
+-
+-.form-field input,
+-.form-field select,
+-.form-field textarea {
+-    width: 100%;
+-    padding: 18px;
+-    border: 1px solid #ddd6ce;
+-    border-radius: 4px;
+-    background: #ffffff;
+-    color: #30445c;
+-    font-size: 20px;
+-    font-family: inherit;
+-    outline: none;
+-    transition: border-color 0.2s ease;
+-}
+-
+-.form-field input,
+-.form-field select {
+-    height: 62px;
+-}
+-
+-.form-field textarea {
+-    min-height: 160px;
+-    resize: vertical;
+-    line-height: 1.5;
+-}
+-
+-.form-field input::placeholder,
+-.form-field textarea::placeholder {
+-    color: #777777;
+-}
+-
+-.form-field input:focus,
+-.form-field select:focus,
+-.form-field textarea:focus {
+-    border-color: #658ba0;
+-    box-shadow: 0 0 0 3px rgba(101, 139, 160, 0.1);
+-}
+-
+-.error {
+-    margin-top: 7px;
+-    color: #b44d42;
+-    font-size: 14px;
+-}
+-
+-.form-actions {
+-    display: flex;
+-    gap: 18px;
+-    margin-top: 40px;
+-}
+-
+-.primary-button,
+-.secondary-button {
+-    padding: 17px 34px;
+-    border-radius: 4px;
+-    font-size: 20px;
+-    font-weight: 600;
+-    cursor: pointer;
+-    transition: all 0.2s ease;
+-}
+-
+-.primary-button {
+-    border: 1px solid #30445c;
+-    background: #30445c;
+-    color: #ffffff;
+-}
+-
+-.secondary-button {
+-    border: 1px solid #ddd6ce;
+-    background: #ffffff;
+-    color: #30445c;
+-}
+-
+-.primary-button:hover {
+-    background: #25384e;
+-    border-color: #25384e;
+-}
+-
+-.secondary-button:hover {
+-    background: #f7f3ef;
+-    border-color: #c8bfb5;
+-}
+-
+-.success-toast {
+-    margin-top: 20px;
+-    padding: 14px 18px;
+-    border-radius: 4px;
+-    background: #edf5ef;
+-    color: #3f6848;
+-    font-size: 16px;
+-    animation: slideIn 0.3s ease;
+-}
+-
+-@keyframes slideIn {
+-    from {
+-        opacity: 0;
+-        transform: translateY(-10px);
+-    }
+-    to {
+-        opacity: 1;
+-        transform: translateY(0);
+-    }
+-}
+-
+-@media (max-width: 700px) {
+-    .add-product-page {
+-        width: calc(100% - 32px);
+-        margin: 45px auto 80px;
+-    }
+-
+-    .page-heading h1 {
+-        font-size: 40px;
+-    }
+-
+-    .page-heading p {
+-        font-size: 17px;
+-    }
+-
+-    .product-form {
+-        padding: 28px 20px;
+-    }
+-
+-    .form-row {
+-        grid-template-columns: 1fr;
+-        gap: 25px;
+-        margin-bottom: 25px;
+-    }
+-
+-    .form-actions {
+-        flex-direction: column;
+-    }
+-
+-    .primary-button,
+-    .secondary-button {
+-        width: 100%;
+-    }
+-}
+\ No newline at end of file
++.add-product-page {
++    width: min(1000px, calc(70% - 96px));
++    margin: 40px auto 140px;
++    flex: 1;
++}
++
++.page-heading {
++    margin-bottom: 30px;
++}
++
++.page-heading h1 {
++    margin: 0 0 12px;
++    color: #242424;
++    font-family: Georgia, "Times New Roman", serif;
++    font-weight: normal;
++    font-size: 50px;
++    line-height: 1;
++    letter-spacing: -1.5px;
++}
++
++.page-heading p {
++    margin: 0;
++    color: #6d6962;
++    font-size: 20px;
++}
++
++.product-form {
++    background: #ffffff;
++    border: 1px solid #dedbd4;
++    border-radius: 4px;
++    padding: 50px;
++}
++
++.form-row {
++    display: grid;
++    grid-template-columns: 1fr 1fr;
++    gap: 28px;
++    margin-bottom: 32px;
++}
++
++.form-field {
++    display: flex;
++    flex-direction: column;
++}
++
++.form-field.full-width {
++    grid-column: 1 / -1;
++}
++
++.form-field label {
++    margin-bottom: 12px;
++    color: #6d6962;
++    font-size: 20px;
++}
++
++.form-field input,
++.form-field select,
++.form-field textarea {
++    width: 100%;
++    padding: 18px;
++    border: 1px solid #dedbd4;
++    border-radius: 4px;
++    background: #ffffff;
++    color: #242424;
++    font-size: 20px;
++    font-family: inherit;
++    outline: none;
++    transition: border-color 0.2s ease;
++}
++
++.form-field input,
++.form-field select {
++    height: 62px;
++}
++
++.form-field textarea {
++    min-height: 160px;
++    resize: vertical;
++    line-height: 1.5;
++}
++
++.form-field input::placeholder,
++.form-field textarea::placeholder {
++    color: #9c9891;
++}
++
++.form-field input:focus,
++.form-field select:focus,
++.form-field textarea:focus {
++    border-color: #242424;
++    box-shadow: 0 0 0 3px rgba(36, 36, 36, 0.08);
++}
++
++.image-upload {
++    display: flex;
++    align-items: center;
++    gap: 20px;
++}
++
++.image-preview {
++    width: 80px;
++    height: 80px;
++    object-fit: cover;
++    border-radius: 4px;
++    border: 1px solid #dedbd4;
++}
++
++.color-field {
++    display: flex;
++    align-items: center;
++    gap: 16px;
++}
++
++.color-field input[type="color"] {
++    width: 62px;
++    height: 62px;
++    padding: 4px;
++    cursor: pointer;
++}
++
++.color-field span {
++    color: #6d6962;
++}
++
++.error {
++    margin-top: 7px;
++    color: #b44d42;
++    font-size: 14px;
++}
++
++.form-actions {
++    display: flex;
++    gap: 18px;
++    margin-top: 40px;
++}
++
++.primary-button,
++.secondary-button {
++    padding: 17px 34px;
++    border-radius: 4px;
++    font-size: 20px;
++    font-family: inherit;
++    font-weight: 600;
++    cursor: pointer;
++    transition: all 0.2s ease;
++}
++
++.primary-button {
++    border: 1px solid #242424;
++    background: #242424;
++    color: #ffffff;
++}
++
++.secondary-button {
++    border: 1px solid #dedbd4;
++    background: #ffffff;
++    color: #242424;
++}
++
++.primary-button:hover {
++    background: #3d3a36;
++    border-color: #3d3a36;
++}
++
++.secondary-button:hover {
++    background: #f7f5f0;
++    border-color: #c8bfb5;
++}
++
++.success-toast {
++    margin-top: 20px;
++    padding: 14px 18px;
++    border-radius: 4px;
++    background: #edf5ef;
++    color: #3f6848;
++    font-size: 16px;
++    animation: slideIn 0.3s ease;
++}
++
++@keyframes slideIn {
++    from {
++        opacity: 0;
++        transform: translateY(-10px);
++    }
++    to {
++        opacity: 1;
++        transform: translateY(0);
++    }
++}
++
++@media (max-width: 700px) {
++    .add-product-page {
++        width: calc(100% - 32px);
++        margin: 45px auto 80px;
++    }
++
++    .page-heading h1 {
++        font-size: 40px;
++    }
++
++    .page-heading p {
++        font-size: 17px;
++    }
++
++    .product-form {
++        padding: 28px 20px;
++    }
++
++    .form-row {
++        grid-template-columns: 1fr;
++        gap: 25px;
++        margin-bottom: 25px;
++    }
++
++    .form-actions {
++        flex-direction: column;
++    }
++
++    .primary-button,
++    .secondary-button {
++        width: 100%;
++    }
++}
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/components/Navbar.css b/verre/src/components/Navbar.css
+--- a/verre/src/components/Navbar.css	2026-08-16 21:06:10.000000000 +0000
++++ b/verre/src/components/Navbar.css	1970-01-01 00:00:00.000000000 +0000
+@@ -1,80 +0,0 @@
+-.admin-header {
+-    display: flex;
+-    justify-content: space-between;
+-    border-bottom: 1px solid #e2dcd5;
+-    background: #f5f0eb;
+-}
+-
+-.logo {
+-    color: #29415b;
+-    font-size: 40px;
+-    font-weight: 700;
+-    letter-spacing: -1.5px;
+-}
+-
+-.admin-nav {
+-    display: flex;
+-    align-items: center;
+-    gap: 32px;
+-}
+-
+-.catalog-link {
+-    border: none;
+-    background: transparent;
+-    color: #52758c;
+-    font-size: 20px;
+-    cursor: pointer;
+-    text-decoration: none;
+-    transition: color 0.2s ease;
+-}
+-
+-.catalog-link:hover {
+-    color: #30445c;
+-}
+-
+-.header-add-button {
+-    border: none;
+-    border-radius: 4px;
+-    padding: 15px 25px;
+-    background: #30445c;
+-    color: white;
+-    font-size: 19px;
+-    font-weight: 600;
+-    cursor: pointer;
+-    text-decoration: none;
+-    display: inline-block;
+-    transition: background 0.2s ease;
+-}
+-
+-.header-add-button:hover {
+-    background: #25384e;
+-}
+-
+-@media (max-width: 700px) {
+-    .admin-header {
+-        height: auto;
+-        padding: 24px;
+-        flex-wrap: wrap;
+-        gap: 16px;
+-    }
+-
+-    .logo {
+-        font-size: 32px;
+-        flex-basis: 100%;
+-    }
+-
+-    .admin-nav {
+-        gap: 12px;
+-        width: 100%;
+-    }
+-
+-    .catalog-link {
+-        font-size: 16px;
+-    }
+-
+-    .header-add-button {
+-        padding: 12px 16px;
+-        font-size: 15px;
+-        flex: 1;
+-    }
+-}
+\ No newline at end of file
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/components/Navbar.jsx b/verre/src/components/Navbar.jsx
+--- a/verre/src/components/Navbar.jsx	2026-08-16 21:18:31.000000000 +0000
++++ b/verre/src/components/Navbar.jsx	2026-08-17 00:02:08.941172941 +0000
+@@ -1,5 +1,4 @@
+ import { NavLink } from 'react-router-dom';
+-import './Navbar.css';
+ 
+ function Navbar() {
+   return (
+@@ -17,7 +16,7 @@
+       </div>
+ 
+       <div className="navbar-action">
+-        <NavLink to="/add-product">
++        <NavLink to="/addproduct">
+           + Add Piece
+         </NavLink>
+       </div>
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/components/ProductCard.jsx b/verre/src/components/ProductCard.jsx
+--- a/verre/src/components/ProductCard.jsx	2026-08-16 22:18:16.000000000 +0000
++++ b/verre/src/components/ProductCard.jsx	1970-01-01 00:00:00.000000000 +0000
+@@ -1,41 +0,0 @@
+-import { useState } from 'react';
+-import { useProducts } from '../context/ProductsContext';
+-
+-export default function ProductCard({ product }) {
+-  const { updateProduct, deleteProduct } = useProducts();
+-  const [isEditing, setIsEditing] = useState(false);
+-  const [formData, setFormData] = useState(product);
+-
+-  const handleChange = (e) => {
+-     setFormData({ ...formData, [e.target.name]: e.target.value });
+-    };
+-
+-  const handleSave = (e) => {
+-     e.preventDefault();
+-     updateProduct(formData);
+-     setIsEditing(false);
+-   };
+-
+-  if (isEditing) {
+-        return (
+-         <form onSubmit={handleSave} className="product-card">
+-         <input name="name" value={formData.name} onChange={handleChange} />
+-         <input name="price" type="number" value={formData.price} onChange={handleChange} />
+-         <input name="color" value={formData.color} onChange={handleChange} />
+-         <button type="submit">Save</button>
+-         <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
+-         </form>
+-        );
+-    }
+-
+-  return (
+-       <div className="product-card">
+-          <img src={product.imageUrl} alt={product.name} />
+-          <h3>{product.name}</h3>
+-          <p>${Number(product.price).toFixed(2)}</p>
+-          <p>{product.collection} — {product.color}</p>
+-          <button onClick={() => setIsEditing(true)}>Update</button>
+-          <button onClick={() => deleteProduct(product.id)}>Delete</button>
+-        </div>
+-    );
+-}
+\ No newline at end of file
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/components/ProductList.jsx b/verre/src/components/ProductList.jsx
+--- a/verre/src/components/ProductList.jsx	2026-08-16 22:18:16.000000000 +0000
++++ b/verre/src/components/ProductList.jsx	1970-01-01 00:00:00.000000000 +0000
+@@ -1,22 +0,0 @@
+-import { useProducts } from '../context/ProductsContext';
+-import ProductCard from './ProductCard';
+-
+-export default function ProductList() {
+-  const { products, searchTerm } = useProducts();
+-
+-  const filtered = products.filter((product) =>
+-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+-  );
+-
+-  if (filtered.length === 0) {
+-    return <p>No products match your search.</p>;
+-  }
+-
+-  return (
+-    <div className="product-list">
+-      {filtered.map((product) => (
+-        <ProductCard key={product.id} product={product} />
+-      ))}
+-    </div>
+-  );
+-}
+\ No newline at end of file
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/components/SearchBar.jsx b/verre/src/components/SearchBar.jsx
+--- a/verre/src/components/SearchBar.jsx	2026-08-16 22:18:16.000000000 +0000
++++ b/verre/src/components/SearchBar.jsx	1970-01-01 00:00:00.000000000 +0000
+@@ -1,14 +0,0 @@
+-import { useProducts } from '../context/ProductsContext';
+-
+-export default function SearchBar() {
+-  const { searchTerm, setSearchTerm } = useProducts();
+-
+-  return (
+-    <input
+-      type="text"
+-      placeholder="Search products..."
+-      value={searchTerm}
+-      onChange={(e) => setSearchTerm(e.target.value)}
+-    />
+-  );
+-}
+\ No newline at end of file
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/components/products/ProductCard.jsx b/verre/src/components/products/ProductCard.jsx
+--- a/verre/src/components/products/ProductCard.jsx	2026-08-16 21:05:57.000000000 +0000
++++ b/verre/src/components/products/ProductCard.jsx	2026-08-17 00:03:09.718916331 +0000
+@@ -15,7 +15,11 @@
+   return (
+     <article className="product-card">
+       <Link to={`/products/${product.id}`} className="product-card-media">
+-        <ProductSwatch color={product.color} shape={product.shape} />
++        {product.image ? (
++          <img src={product.image} alt={product.name} className="product-image" />
++        ) : (
++          <ProductSwatch color={product.color} shape={product.shape} />
++        )}
+       </Link>
+ 
+       <div className="product-card-body">
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/components/products/ProductForm.jsx b/verre/src/components/products/ProductForm.jsx
+--- a/verre/src/components/products/ProductForm.jsx	2026-08-16 21:05:57.000000000 +0000
++++ b/verre/src/components/products/ProductForm.jsx	2026-08-17 00:02:38.110637418 +0000
+@@ -1,9 +1,24 @@
+ import { COLLECTIONS, FRAME_TYPES, SHAPES } from '../../hooks/useProductForm';
+ 
+-function ProductForm({ form, errors, update, onSubmit, onCancel, submitLabel }) {
++function ProductForm({ form, errors, update, updateImage, onSubmit, onCancel, submitLabel }) {
+   return (
+     <form className="product-form" onSubmit={onSubmit}>
+       <div className="form-field">
++        <label htmlFor="image">Image</label>
++        <div className="image-upload">
++          {form.image && (
++            <img src={form.image} alt="Preview" className="image-preview" />
++          )}
++          <input
++            id="image"
++            type="file"
++            accept="image/*"
++            onChange={(e) => updateImage(e.target.files[0])}
++          />
++        </div>
++      </div>
++
++      <div className="form-field">
+         <label htmlFor="name">Name</label>
+         <input id="name" type="text" placeholder="Name" value={form.name} onChange={update('name')} />
+         {errors.name && <span className="error">{errors.name}</span>}
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/components/useProduct.js b/verre/src/components/useProduct.js
+--- a/verre/src/components/useProduct.js	2026-08-16 21:06:10.000000000 +0000
++++ b/verre/src/components/useProduct.js	1970-01-01 00:00:00.000000000 +0000
+@@ -1,35 +0,0 @@
+-import { useState } from 'react';
+-
+-export function useProducts() {
+-    const [products, setProducts] = useState([]);
+-
+-    const addProduct = (product) => {
+-        setProducts((currentProducts) => [
+-            ...currentProducts,
+-            product
+-        ]);
+-    };
+-
+-    const updateProduct = (id, updateProduct) => {
+-        setProducts((currentProducts) => 
+-            currentProducts.map((product) =>
+-                product.id === id
+-                    ? {...product, ...updateProduct }
+-                    : product
+-                )
+-            );
+-    };
+-
+-    const deleteProduct = (id) => {
+-        setProducts((currentProducts) =>
+-            currentProducts.filter((product) => product.id !== id)
+-        );
+-    };
+-
+-    return {
+-        products,
+-        addProduct,
+-        updateProduct,
+-        deleteProduct
+-    };
+-}
+\ No newline at end of file
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/context/ProductsContext.jsx b/verre/src/context/ProductsContext.jsx
+--- a/verre/src/context/ProductsContext.jsx	2026-08-16 23:47:22.000000000 +0000
++++ b/verre/src/context/ProductsContext.jsx	2026-08-17 00:02:20.947929103 +0000
+@@ -12,8 +12,8 @@
+       frameType: 'Full-Rim',
+       shape: 'Round',
+       size: '60x90 cm',
+-      color: 'Matte Black',
+-      imageUrl: 'https://via.placeholder.com/150'
++      color: '#242424',
++      image: ''
+     },
+     {
+       id: 2,
+@@ -23,8 +23,8 @@
+       frameType: 'Half-Rim',
+       shape: 'Round',
+       size: '80x120 cm',
+-      color: 'Antique Gold',
+-      imageUrl: 'https://via.placeholder.com/150'
++      color: '#b8925a',
++      image: ''
+     }
+   ]);
+   const [searchTerm, setSearchTerm] = useState('');
+@@ -33,10 +33,10 @@
+      setProducts((current) => [...current, product]);
+   };
+ 
+-  const updateProduct = (updatedProduct) => {
++  const updateProduct = (id, updates) => {
+      setProducts((current) =>
+          current.map((product) =>
+-              product.id === updatedProduct.id ? updatedProduct : product
++              product.id === id ? { ...product, ...updates } : product
+            )
+         );
+     };
+@@ -45,11 +45,19 @@
+      setProducts((current) => current.filter((product) => product.id !== id));
+   };
+ 
+-  const value = { products, searchTerm, setSearchTerm, addProduct, updateProduct, deleteProduct };
++  const getProduct = (id) =>
++    products.find((product) => String(product.id) === String(id));
++
++  const value = { products, searchTerm, setSearchTerm, addProduct, updateProduct, deleteProduct, getProduct };
+ 
+   return <ProductContext.Provider value={value}>{children}</ProductContext.Provider>;
+ }
+ 
++// eslint-disable-next-line react-refresh/only-export-components
+ export function useProducts() {
+-  return useContext(ProductContext);
++  const context = useContext(ProductContext);
++  if (!context) {
++    throw new Error('useProducts must be used within a ProductProvider');
++  }
++  return context;
+ }
+\ No newline at end of file
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/hooks/useProductForm.js b/verre/src/hooks/useProductForm.js
+--- a/verre/src/hooks/useProductForm.js	2026-08-16 21:05:58.000000000 +0000
++++ b/verre/src/hooks/useProductForm.js	2026-08-17 00:02:30.801469043 +0000
+@@ -12,6 +12,7 @@
+   shape: SHAPES[0],
+   size: '',
+   color: '#242424',
++  image: '',
+ };
+ 
+ function validate(form) {
+@@ -35,6 +36,18 @@
+     setForm((current) => ({ ...current, [field]: e.target.value }));
+   };
+ 
++  const updateImage = (file) => {
++    if (!file) {
++      setForm((current) => ({ ...current, image: '' }));
++      return;
++    }
++    const reader = new FileReader();
++    reader.onload = () => {
++      setForm((current) => ({ ...current, image: reader.result }));
++    };
++    reader.readAsDataURL(file);
++  };
++
+   const handleSubmit = (e) => {
+     e.preventDefault();
+     const nextErrors = validate(form);
+@@ -49,6 +62,7 @@
+       shape: form.shape,
+       size: form.size.trim(),
+       color: form.color.trim(),
++      image: form.image,
+     });
+   };
+ 
+@@ -57,5 +71,5 @@
+     setErrors({});
+   };
+ 
+-  return { form, errors, update, handleSubmit, reset };
++  return { form, errors, update, updateImage, handleSubmit, reset };
+ }
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/hooks/useProducts.js b/verre/src/hooks/useProducts.js
+--- a/verre/src/hooks/useProducts.js	2026-08-16 21:05:58.000000000 +0000
++++ b/verre/src/hooks/useProducts.js	1970-01-01 00:00:00.000000000 +0000
+@@ -1,62 +0,0 @@
+-import { useState, useEffect } from 'react';
+-
+-const STORAGE_KEY = 'verre-products';
+-const seedProducts = [
+-  { id: 1, name: 'Aria', collection: 'Modern Minimalist', price: 189, frameType: 'Full-Rim', shape: 'Round', size: 'M', color: '#8a7f6b' },
+-  { id: 2, name: 'Solstice', collection: 'Classic', price: 149, frameType: 'Half-Rim', shape: 'Rectangle', size: 'L', color: '#3d3a36' },
+-  { id: 3, name: 'Nomad', collection: 'Sports Active', price: 165, frameType: 'Rimless', shape: 'Square', size: 'M', color: '#5c6b57' },
+-  { id: 4, name: 'Vesper', collection: 'Retro & Vintage', price: 210, frameType: 'Full-Rim', shape: 'Round', size: 'S', color: '#7a4b3a' },
+-];
+-
+-function loadInitialProducts() {
+-  try {
+-    const stored = window.localStorage.getItem(STORAGE_KEY);
+-    return stored ? JSON.parse(stored) : seedProducts;
+-  } catch {
+-  
+-    return seedProducts;
+-  }
+-}
+-
+-export function useProducts() {
+-  const [products, setProducts] = useState(loadInitialProducts);
+-  const [searchTerm, setSearchTerm] = useState('');
+-
+-  
+-  useEffect(() => {
+-    try {
+-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+-    } catch {
+-      
+-    }
+-  }, [products]);
+-
+-  const addProduct = (product) => {
+-    setProducts((current) => [...current, product]);
+-  };
+-
+-  const updateProduct = (id, updates) => {
+-    setProducts((current) =>
+-      current.map((product) =>
+-        product.id === id ? { ...product, ...updates } : product
+-      )
+-    );
+-  };
+-
+-  const deleteProduct = (id) => {
+-    setProducts((current) => current.filter((product) => product.id !== id));
+-  };
+-
+-  const getProduct = (id) =>
+-    products.find((product) => String(product.id) === String(id));
+-
+-  return {
+-    products,
+-    searchTerm,
+-    setSearchTerm,
+-    addProduct,
+-    updateProduct,
+-    deleteProduct,
+-    getProduct,
+-  };
+-}
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/index.css b/verre/src/index.css
+--- a/verre/src/index.css	2026-08-16 21:46:21.000000000 +0000
++++ b/verre/src/index.css	2026-08-17 04:46:27.369486353 +0000
+@@ -129,9 +129,6 @@
+   font-style: italic;
+ }
+ 
+-
+-/* DESCRIPTION */
+-
+ .hero-description {
+   max-width: 650px;
+ 
+@@ -144,9 +141,6 @@
+   line-height: 1.8;
+ }
+ 
+-
+-/* HERO BUTTON */
+-
+ .hero-button {
+   display: inline-flex;
+ 
+@@ -187,7 +181,6 @@
+   color: #ffffff;
+ }
+ 
+-
+ .footer-brand {
+   font-family: Georgia, "Times New Roman", serif;
+ 
+@@ -197,20 +190,78 @@
+   letter-spacing: 5px;
+ }
+ 
+-
+ .footer-tagline {
+   color: #d0ccc4;
+ 
+   font-size: 14px;
+ }
+ 
+-
+ .footer-copy {
+   color: #9c9891;
+ 
+   font-size: 12px;
+ }
+ 
++.static-page {
++  min-height: 100vh;
++  display: flex;
++  flex-direction: column;
++}
++
++.static-page .footer {
++  margin-top: auto;
++}
++
++.page-content {
++  width: min(720px, calc(100% - 96px));
++  margin: 80px auto 140px;
++  flex: 1;
++}
++
++.page-content h1 {
++  font-family: Georgia, "Times New Roman", serif;
++  font-weight: normal;
++  font-size: 44px;
++  letter-spacing: -1px;
++  margin-bottom: 28px;
++}
++
++.page-content p {
++  font-size: 16px;
++  line-height: 1.7;
++  color: #3d3a36;
++  margin-bottom: 20px;
++}
++
++.page-content a {
++  color: #242424;
++  text-decoration: underline;
++  text-underline-offset: 3px;
++}
++
++.page-content a:hover {
++  opacity: 0.7;
++}
++
++.page-content-links {
++  margin-top: 40px;
++  padding-top: 24px;
++  border-top: 1px solid #dedbd4;
++  font-size: 14px;
++  color: #6d6962;
++}
++
++@media (max-width: 700px) {
++  .page-content {
++    width: calc(100% - 40px);
++    margin: 50px auto 90px;
++  }
++
++  .page-content h1 {
++    font-size: 34px;
++  }
++}
++
+ @media (max-width: 900px) {
+ 
+   .navbar {
+@@ -248,13 +299,11 @@
+     gap: 15px;
+   }
+ 
+-
+   .navbar-logo {
+     width: 100%;
+     text-align: center;
+   }
+ 
+-
+   .navbar-links {
+     width: 100%;
+ 
+@@ -263,12 +312,10 @@
+     gap: 20px;
+   }
+ 
+-
+   .navbar-links a {
+     font-size: 13px;
+   }
+ 
+-
+   .navbar-action {
+     width: 100%;
+ 
+@@ -277,40 +324,34 @@
+     justify-content: center;
+   }
+ 
+-
+   .navbar-action a {
+     padding: 9px 17px;
+   }
+ 
+-
+   .hero {
+     min-height: 500px;
+ 
+     padding: 60px 5%;
+   }
+ 
+-
+   .hero-label {
+     font-size: 10px;
+ 
+     letter-spacing: 3px;
+   }
+ 
+-
+   .hero h1 {
+     font-size: 52px;
+ 
+     letter-spacing: -2px;
+   }
+ 
+-
+   .hero-description {
+     font-size: 14px;
+ 
+     line-height: 1.7;
+   }
+ 
+-
+   .footer {
+     flex-direction: column;
+ 
+@@ -320,4 +361,273 @@
+ 
+     padding: 45px 5%;
+   }
+-}
+\ No newline at end of file
++}
++
++.navbar-links a.active {
++  opacity: 0.55;
++  text-decoration: underline;
++  text-underline-offset: 6px;
++}
++
++.product-catalog-page,
++.product-detail-page {
++  width: min(1100px, calc(100% - 96px));
++  margin: 50px auto 140px;
++}
++
++.catalog-heading {
++  display: flex;
++  align-items: flex-end;
++  justify-content: space-between;
++  gap: 24px;
++  flex-wrap: wrap;
++  margin-bottom: 36px;
++}
++
++.catalog-heading h1 {
++  font-family: Georgia, "Times New Roman", serif;
++  font-size: 44px;
++  font-weight: normal;
++  letter-spacing: -1px;
++  margin-bottom: 8px;
++}
++
++.catalog-heading p {
++  color: #6d6962;
++  font-size: 14px;
++}
++
++.search-bar {
++  position: relative;
++  min-width: 280px;
++}
++
++.search-bar input {
++  width: 100%;
++  padding: 13px 40px 13px 18px;
++  border: 1px solid #dedbd4;
++  border-radius: 30px;
++  background: #ffffff;
++  font-size: 14px;
++  font-family: inherit;
++  color: #242424;
++  outline: none;
++  transition: border-color 0.2s ease;
++}
++
++.search-bar input:focus {
++  border-color: #242424;
++}
++
++.clear-search {
++  position: absolute;
++  right: 10px;
++  top: 50%;
++  transform: translateY(-50%);
++  border: none;
++  background: transparent;
++  font-size: 20px;
++  line-height: 1;
++  cursor: pointer;
++  color: #6d6962;
++}
++
++.product-grid {
++  display: grid;
++  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
++  gap: 28px;
++}
++
++.product-card {
++  background: #ffffff;
++  border: 1px solid #dedbd4;
++  border-radius: 8px;
++  overflow: hidden;
++  display: flex;
++  flex-direction: column;
++  transition: box-shadow 0.2s ease;
++}
++
++.product-card:hover {
++  box-shadow: 0 8px 24px rgba(36, 36, 36, 0.08);
++}
++
++.product-card-media {
++  display: flex;
++  align-items: center;
++  justify-content: center;
++  padding: 24px;
++  background: #f0ede6;
++}
++
++.product-swatch {
++  display: block;
++}
++
++.product-image {
++  width: 100%;
++  height: 96px;
++  object-fit: cover;
++  border-radius: 4px;
++  display: block;
++}
++
++.product-card-body {
++  padding: 18px 20px 22px;
++  display: flex;
++  flex-direction: column;
++  gap: 10px;
++  flex: 1;
++}
++
++.product-card-heading {
++  display: flex;
++  align-items: baseline;
++  justify-content: space-between;
++  gap: 10px;
++}
++
++.product-card-heading h3 {
++  font-family: Georgia, "Times New Roman", serif;
++  font-size: 20px;
++  font-weight: normal;
++}
++
++.product-price {
++  font-size: 15px;
++  font-weight: bold;
++  white-space: nowrap;
++}
++
++.product-collection {
++  font-size: 12px;
++  letter-spacing: 1px;
++  text-transform: uppercase;
++  color: #6d6962;
++}
++
++.product-attributes {
++  display: grid;
++  grid-template-columns: 1fr 1fr;
++  gap: 10px 16px;
++  margin: 4px 0;
++}
++
++.product-attributes dt {
++  font-size: 11px;
++  text-transform: uppercase;
++  letter-spacing: 0.5px;
++  color: #9c9891;
++}
++
++.product-attributes dd {
++  font-size: 14px;
++  color: #242424;
++}
++
++.product-attributes-large {
++  grid-template-columns: 1fr 1fr;
++  gap: 20px 32px;
++  margin: 20px 0 30px;
++}
++
++.product-attributes-large dt {
++  font-size: 12px;
++}
++
++.product-attributes-large dd {
++  font-size: 18px;
++}
++
++.product-color {
++  display: flex;
++  align-items: center;
++  gap: 6px;
++}
++
++.color-dot {
++  width: 12px;
++  height: 12px;
++  border-radius: 50%;
++  border: 1px solid rgba(0, 0, 0, 0.15);
++  display: inline-block;
++}
++
++.product-card-actions {
++  display: flex;
++  gap: 10px;
++  margin-top: auto;
++  padding-top: 8px;
++  flex-wrap: wrap;
++}
++
++.empty-state,
++.not-found {
++  padding: 80px 20px;
++  text-align: center;
++  color: #6d6962;
++}
++
++.empty-state p,
++.not-found p {
++  margin-bottom: 20px;
++}
++
++.product-detail {
++  display: grid;
++  grid-template-columns: 320px 1fr;
++  gap: 50px;
++  align-items: start;
++}
++
++.product-detail-media {
++  background: #f0ede6;
++  border-radius: 8px;
++  display: flex;
++  align-items: center;
++  justify-content: center;
++  padding: 40px;
++}
++
++.product-detail-price {
++  font-size: 28px;
++  font-weight: bold;
++  margin: 12px 0 0;
++}
++
++.product-detail-media .product-image {
++  width: 220px;
++  height: 220px;
++}
++
++.danger-button {
++  display: inline-flex;
++  align-items: center;
++  justify-content: center;
++  padding: 12px 24px;
++  border-radius: 4px;
++  font-size: 14px;
++  font-family: inherit;
++  cursor: pointer;
++  transition: all 0.2s ease;
++  border: 1px solid #e3d4d0;
++  background: #ffffff;
++  color: #b44d42;
++  text-align: center;
++}
++
++.danger-button:hover {
++  background: #fbf1ef;
++}
++
++@media (max-width: 700px) {
++  .product-catalog-page,
++  .product-detail-page {
++    width: calc(100% - 40px);
++    margin: 30px auto 90px;
++  }
++
++  .product-detail {
++    grid-template-columns: 1fr;
++  }
++}
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/main.jsx b/verre/src/main.jsx
+--- a/verre/src/main.jsx	2026-08-16 22:55:09.000000000 +0000
++++ b/verre/src/main.jsx	2026-08-16 23:51:41.451826345 +0000
+@@ -2,10 +2,12 @@
+ import { createRoot } from 'react-dom/client'
+ import './index.css'
+ import App from './App.jsx'
+-import { ProductsProvider } from './context/ProductsContext.jsx'
++import { ProductProvider } from './context/ProductsContext.jsx'
+ 
+ createRoot(document.getElementById('root')).render(
+   <StrictMode>
+-    <App />
++    <ProductProvider>
++      <App />
++    </ProductProvider>
+   </StrictMode>,
+-)
+\ No newline at end of file
++)
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/pages/About.jsx b/verre/src/pages/About.jsx
+--- a/verre/src/pages/About.jsx	2026-08-16 21:06:10.000000000 +0000
++++ b/verre/src/pages/About.jsx	2026-08-17 04:46:09.627500187 +0000
+@@ -1,20 +1,27 @@
++import Navbar from '../components/Navbar';
++import Footer from '../components/Footer';
++
+ function About() {
+   return (
+-    <main className="page-content">
+-      <h1>About Verre</h1>
++    <div className="static-page">
++      <Navbar />
++      <main className="page-content">
++        <h1>About Verre</h1>
+ 
+-      <p>
+-        Verre is a glassware studio dedicated to creating
+-        carefully crafted pieces that bring simplicity,
+-        elegance, and beauty into everyday spaces.
+-      </p>
++        <p>
++          Verre is a glassware studio dedicated to creating
++          carefully crafted pieces that bring simplicity,
++          elegance, and beauty into everyday spaces.
++        </p>
+ 
+-      <p>
+-        Every piece begins as an idea and is transformed
+-        through the art of glassmaking.
+-      </p>
+-    </main>
++        <p>
++          Every piece begins as an idea and is transformed
++          through the art of glassmaking.
++        </p>
++      </main>
++      <Footer />
++    </div>
+   );
+ }
+ 
+-export default About;
+\ No newline at end of file
++export default About;
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/pages/AddProduct.jsx b/verre/src/pages/AddProduct.jsx
+--- a/verre/src/pages/AddProduct.jsx	2026-08-16 21:06:10.000000000 +0000
++++ b/verre/src/pages/AddProduct.jsx	2026-08-17 00:03:00.727909936 +0000
+@@ -1,141 +1,171 @@
+-import { useState } from 'react';
+-import { useNavigate } from 'react-router-dom';
+-import { useProducts } from '../components/useProduct';
+-import '../components/AddProduct.css';
+-import Navbar from '../components/Navbar';
+-
+-const collections = ['Classic', 'Modern Minimalist', 'Retro & Vintage', 'Sports Active'];
+-const frameTypes = ['Full-Rim', 'Half-Rim', 'Rimless'];
+-const shapes = ['Rectangle', 'Round', 'Square'];
+-
+-const emptyForm = {
+-    name: '',
+-    collection: 'Classic',
+-    price: '',
+-    frameType: 'Full-Rim',
+-    shape: 'Rectangle',
+-    size: '',
+-    color: ''
+-};
+-
+-function validate(form) {
+-    const errors = {};
+-    if (!form.name.trim()) errors.name = 'Give the piece a name';
+-    if (!form.collection) errors.collection = 'Select a collection';
+-    if (!form.price || Number.isNaN(Number(form.price)) || Number(form.price) < 0) 
+-        errors.price = 'Enter a price';
+-    if (!form.frameType) errors.frameType = 'Select a frame type';
+-    if (!form.shape) errors.shape = 'Select a shape';
+-    if (!form.size.trim()) errors.size = 'Enter a size';
+-    if (!form.color.trim()) errors.color = 'Enter a color';
+-    return errors;
+-}
+-
+-export default function AddProduct() {
+-    const [form, setForm] = useState(emptyForm);
+-    const [errors, setErrors] = useState({});
+-    const [showToast, setShowToast] = useState(false);
+-    const { addProduct } = useProducts();
+-    const navigate = useNavigate();
+-
+-    const update = (field) => (e) => {
+-        setForm({ ...form, [field]: e.target.value });
+-    };
+-
+-    const handleSubmit = (e) => {
+-        e.preventDefault();
+-        const nextErrors = validate(form);
+-        setErrors(nextErrors);
+-        if (Object.keys(nextErrors).length > 0)
+-            return;
+-
+-        const product = {
+-            id: Date.now(),
+-            name: form.name.trim(),
+-            collection: form.collection,
+-            price: Number(form.price),
+-            frameType: form.frameType,
+-            shape: form.shape,
+-            size: form.size,
+-            color: form.color.trim(),
+-        };
+-
+-        addProduct(product);
+-        console.log('Product added successfully',product);
+-        setShowToast(true);
+-        setTimeout(() => navigate(`/products`), 1000);
+-    };
+-
+-    const handleCancel = () => {
+-        navigate('/addproduct');
+-        setForm(emptyForm);
+-        setShowToast(false);
+-    }
+-
+-    return (
+-        <div className="add-product-page">
+-            <Navbar />
+-            <div className="page-heading">
+-                <h1>Add a product</h1>
+-                <p>Fill out the form below to add a new product to the catalog.</p>
+-            </div>
+-            <form className="product-form" onSubmit={handleSubmit}>
+-                <div className="form-field">
+-                    <label htmlFor="name">Name</label>
+-                    <input id="name" type="text" placeholder="Name" value={form.name} onChange={update('name')} />
+-                    {errors.name && <span className="error">{errors.name}</span>}
+-                </div>
+-                <div className="form-field">
+-                    <label htmlFor="collection">Collection</label>
+-                    <select id="collection" value={form.collection} onChange={update('collection')}>
+-                        {collections.map((collection) => (
+-                            <option key={collection} value={collection}>{collection}</option>
+-                        ))}
+-                    </select>
+-                    {errors.collection && <span className="error">{errors.collection}</span>}
+-                </div>
+-                <div className="form-field">
+-                    <label htmlFor="price">Price</label>
+-                    {errors.price && <span className="error">{errors.price}</span>}
+-                    <input id="price" type="number" placeholder="Price" value={form.price} onChange={update('price')} />
+-                    {errors.price && <span className="error">{errors.price}</span>}
+-                </div>
+-                <div className="form-field">
+-                    <label htmlFor="frameType">Frame Type</label>
+-                    <select id="frameType" value={form.frameType} onChange={update('frameType')}>
+-                    {frameTypes.map((frameType) => (
+-                        <option key={frameType}>{frameType}</option>
+-                    ))}
+-                    </select>
+-                    {errors.frameType && <span className="error">{errors.frameType}</span>}
+-                </div>
+-                <div className="form-field">
+-                    <label htmlFor="shape">Shape</label>
+-                    <select id="shape" value={form.shape} onChange={update('shape')}>
+-                        {shapes.map((shape) => (
+-                            <option key={shape}>{shape}</option>
+-                        ))}
+-                    </select>
+-                    {errors.shape && <span className="error">{errors.shape}</span>}
+-                </div>
+-                <div className="form-row">
+-                    <div className="form-field">
+-                        <label htmlFor="size">Size</label>
+-                        <input id="size" type="text" placeholder="Size" value={form.size} onChange={update('size')} />
+-                            {errors.size && <span className="error">{errors.size}</span>}
+-                    </div>
+-                    <div className="form-field">
+-                        <label htmlFor="color">Color</label>
+-                        <input id="color" type="text" placeholder="Color" value={form.color} onChange={update('color')} />
+-                            {errors.color && <span className="error">{errors.color}</span>}
+-                    </div>
+-                </div>
+-                <div className="form-actions">
+-                    <button type="submit" className="primary-button">Add Product</button>
+-                    <button type="button" className="secondary-button" onClick={handleCancel}>Cancel</button>
+-                </div>
+-                {showToast && (<div className="success-toast">Product added successfully!</div>)}
+-            </form>
+-        </div>
+-    );
+-}
+\ No newline at end of file
++import { useState } from 'react';
++import { useNavigate } from 'react-router-dom';
++import { useProducts } from '../context/ProductsContext';
++import '../components/AddProduct.css';
++import Navbar from '../components/Navbar';
++
++const collections = ['Classic', 'Modern Minimalist', 'Retro & Vintage', 'Sports Active'];
++const frameTypes = ['Full-Rim', 'Half-Rim', 'Rimless'];
++const shapes = ['Rectangle', 'Round', 'Square'];
++
++const emptyForm = {
++    name: '',
++    collection: 'Classic',
++    price: '',
++    frameType: 'Full-Rim',
++    shape: 'Rectangle',
++    size: '',
++    color: '#242424',
++    image: ''
++};
++
++function validate(form) {
++    const errors = {};
++    if (!form.name.trim()) errors.name = 'Give the piece a name';
++    if (!form.collection) errors.collection = 'Select a collection';
++    if (!form.price || Number.isNaN(Number(form.price)) || Number(form.price) < 0) 
++        errors.price = 'Enter a price';
++    if (!form.frameType) errors.frameType = 'Select a frame type';
++    if (!form.shape) errors.shape = 'Select a shape';
++    if (!form.size.trim()) errors.size = 'Enter a size';
++    if (!form.color.trim()) errors.color = 'Enter a color';
++    return errors;
++}
++
++export default function AddProduct() {
++    const [form, setForm] = useState(emptyForm);
++    const [errors, setErrors] = useState({});
++    const [showToast, setShowToast] = useState(false);
++    const { addProduct } = useProducts();
++    const navigate = useNavigate();
++
++    const update = (field) => (e) => {
++        setForm({ ...form, [field]: e.target.value });
++    };
++
++    const updateImage = (file) => {
++        if (!file) {
++            setForm((current) => ({ ...current, image: '' }));
++            return;
++        }
++        const reader = new FileReader();
++        reader.onload = () => {
++            setForm((current) => ({ ...current, image: reader.result }));
++        };
++        reader.readAsDataURL(file);
++    };
++
++    const handleSubmit = (e) => {
++        e.preventDefault();
++        const nextErrors = validate(form);
++        setErrors(nextErrors);
++        if (Object.keys(nextErrors).length > 0)
++            return;
++
++        const product = {
++            id: Date.now(),
++            name: form.name.trim(),
++            collection: form.collection,
++            price: Number(form.price),
++            frameType: form.frameType,
++            shape: form.shape,
++            size: form.size,
++            color: form.color.trim(),
++            image: form.image,
++        };
++
++        addProduct(product);
++        setShowToast(true);
++        setTimeout(() => navigate(`/products`), 1000);
++    };
++
++    const handleCancel = () => {
++        navigate('/addproduct');
++        setForm(emptyForm);
++        setShowToast(false);
++    }
++
++    return (
++        <div className="add-product-page">
++            <Navbar />
++            <div className="page-heading">
++                <h1>Add a product</h1>
++                <p>Fill out the form below to add a new product to the catalog.</p>
++            </div>
++            <form className="product-form" onSubmit={handleSubmit}>
++                <div className="form-field">
++                    <label htmlFor="image">Image</label>
++                    <div className="image-upload">
++                        {form.image && (
++                            <img src={form.image} alt="Preview" className="image-preview" />
++                        )}
++                        <input
++                            id="image"
++                            type="file"
++                            accept="image/*"
++                            onChange={(e) => updateImage(e.target.files[0])}
++                        />
++                    </div>
++                </div>
++                <div className="form-field">
++                    <label htmlFor="name">Name</label>
++                    <input id="name" type="text" placeholder="Name" value={form.name} onChange={update('name')} />
++                    {errors.name && <span className="error">{errors.name}</span>}
++                </div>
++                <div className="form-field">
++                    <label htmlFor="collection">Collection</label>
++                    <select id="collection" value={form.collection} onChange={update('collection')}>
++                        {collections.map((collection) => (
++                            <option key={collection} value={collection}>{collection}</option>
++                        ))}
++                    </select>
++                    {errors.collection && <span className="error">{errors.collection}</span>}
++                </div>
++                <div className="form-field">
++                    <label htmlFor="price">Price</label>
++                    {errors.price && <span className="error">{errors.price}</span>}
++                    <input id="price" type="number" placeholder="Price" value={form.price} onChange={update('price')} />
++                    {errors.price && <span className="error">{errors.price}</span>}
++                </div>
++                <div className="form-field">
++                    <label htmlFor="frameType">Frame Type</label>
++                    <select id="frameType" value={form.frameType} onChange={update('frameType')}>
++                    {frameTypes.map((frameType) => (
++                        <option key={frameType}>{frameType}</option>
++                    ))}
++                    </select>
++                    {errors.frameType && <span className="error">{errors.frameType}</span>}
++                </div>
++                <div className="form-field">
++                    <label htmlFor="shape">Shape</label>
++                    <select id="shape" value={form.shape} onChange={update('shape')}>
++                        {shapes.map((shape) => (
++                            <option key={shape}>{shape}</option>
++                        ))}
++                    </select>
++                    {errors.shape && <span className="error">{errors.shape}</span>}
++                </div>
++                <div className="form-row">
++                    <div className="form-field">
++                        <label htmlFor="size">Size</label>
++                        <input id="size" type="text" placeholder="Size" value={form.size} onChange={update('size')} />
++                            {errors.size && <span className="error">{errors.size}</span>}
++                    </div>
++                    <div className="form-field">
++                        <label htmlFor="color">Color</label>
++                        <div className="color-field">
++                            <input id="color" type="color" value={form.color} onChange={update('color')} />
++                            <span>{form.color}</span>
++                        </div>
++                        {errors.color && <span className="error">{errors.color}</span>}
++                    </div>
++                </div>
++                <div className="form-actions">
++                    <button type="submit" className="primary-button">Add Product</button>
++                    <button type="button" className="secondary-button" onClick={handleCancel}>Cancel</button>
++                </div>
++                {showToast && (<div className="success-toast">Product added successfully!</div>)}
++            </form>
++        </div>
++    );
++}
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/pages/Contact.jsx b/verre/src/pages/Contact.jsx
+--- a/verre/src/pages/Contact.jsx	2026-08-16 21:06:10.000000000 +0000
++++ b/verre/src/pages/Contact.jsx	2026-08-17 04:46:15.301407440 +0000
+@@ -1,20 +1,33 @@
++import { Link } from 'react-router-dom';
++import Navbar from '../components/Navbar';
++import Footer from '../components/Footer';
++
+ function Contact() {
+   return (
+-    <main className="page-content">
+-      <h1>Contact Verre</h1>
++    <div className="static-page">
++      <Navbar />
++      <main className="page-content">
++        <h1>Contact Verre</h1>
++
++        <p>
++          Have a question about our collection or want to
++          learn more about Verre?
++        </p>
+ 
+-      <p>
+-        Have a question about our collection or want to
+-        learn more about Verre?
+-      </p>
++        <p>
++          Email us at:
++          <br />
++          <a href="mailto:b.a@verreglassware.com">b.a@verreglassware.com</a>
++        </p>
+ 
+-      <p>
+-        Email us at:
+-        <br />
+-        b.a@verreglassware.com
+-      </p>
+-    </main>
++        <p className="page-content-links">
++          Want to see what we make first? Browse the <Link to="/products">Collection</Link>{' '}
++          or read more <Link to="/about">About Verre</Link>.
++        </p>
++      </main>
++      <Footer />
++    </div>
+   );
+ }
+ 
+-export default Contact;
+\ No newline at end of file
++export default Contact;
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/pages/ProductCatalog.jsx b/verre/src/pages/ProductCatalog.jsx
+--- a/verre/src/pages/ProductCatalog.jsx	2026-08-16 21:32:21.000000000 +0000
++++ b/verre/src/pages/ProductCatalog.jsx	2026-08-16 23:51:58.955825839 +0000
+@@ -1,11 +1,22 @@
+-import SearchBar from '../components/SearchBar';
+-import ProductList from '../components/ProductList';
++import Navbar from '../components/Navbar';
++import SearchBar from '../components/products/SearchBar';
++import ProductGrid from '../components/products/ProductGrid';
++import { useProducts } from '../context/ProductsContext';
+ 
+ export default function ProductCatalog() {
++  const { products } = useProducts();
++
+   return (
+     <div className="product-catalog-page">
+-      <SearchBar />
+-      <ProductList />
++      <Navbar />
++      <div className="catalog-heading">
++        <div>
++          <h1>The Collection</h1>
++          <p>{products.length} piece{products.length !== 1 ? 's' : ''} in the studio catalog</p>
++        </div>
++        <SearchBar />
++      </div>
++      <ProductGrid />
+     </div>
+   );
+ }
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.git' '--exclude=package-lock.json' a/verre/src/pages/ProductDetail.jsx b/verre/src/pages/ProductDetail.jsx
+--- a/verre/src/pages/ProductDetail.jsx	2026-08-16 21:05:58.000000000 +0000
++++ b/verre/src/pages/ProductDetail.jsx	2026-08-17 00:03:12.629322142 +0000
+@@ -35,7 +35,11 @@
+       <Navbar />
+       <div className="product-detail">
+         <div className="product-detail-media">
+-          <ProductSwatch color={product.color} shape={product.shape} size={220} />
++          {product.image ? (
++            <img src={product.image} alt={product.name} className="product-image" />
++          ) : (
++            <ProductSwatch color={product.color} shape={product.shape} size={220} />
++          )}
+         </div>
+         <div className="product-detail-info">
+           <p className="hero-label">{product.collection}</p>

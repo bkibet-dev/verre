@@ -12,6 +12,7 @@ const emptyForm = {
   shape: SHAPES[0],
   size: '',
   color: '#242424',
+  image: '',
 };
 
 function validate(form) {
@@ -35,6 +36,18 @@ export function useProductForm(initialValues, onSave) {
     setForm((current) => ({ ...current, [field]: e.target.value }));
   };
 
+  const updateImage = (file) => {
+    if (!file) {
+      setForm((current) => ({ ...current, image: '' }));
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setForm((current) => ({ ...current, image: reader.result }));
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const nextErrors = validate(form);
@@ -49,6 +62,7 @@ export function useProductForm(initialValues, onSave) {
       shape: form.shape,
       size: form.size.trim(),
       color: form.color.trim(),
+      image: form.image,
     });
   };
 
@@ -57,5 +71,5 @@ export function useProductForm(initialValues, onSave) {
     setErrors({});
   };
 
-  return { form, errors, update, handleSubmit, reset };
+  return { form, errors, update, updateImage, handleSubmit, reset };
 }

@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router-dom';
-import './Navbar.css';
 
 function Navbar() {
   return (
@@ -17,7 +16,7 @@ function Navbar() {
       </div>
 
       <div className="navbar-action">
-        <NavLink to="/add-product">
+        <NavLink to="/addproduct">
           + Add Piece
         </NavLink>
       </div>

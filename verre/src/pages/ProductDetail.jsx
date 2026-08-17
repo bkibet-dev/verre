@@ -35,7 +35,11 @@ function ProductDetail() {
       <Navbar />
       <div className="product-detail">
         <div className="product-detail-media">
-          <ProductSwatch color={product.color} shape={product.shape} size={220} />
+          {product.image ? (
+            <img src={product.image} alt={product.name} className="product-image" />
+          ) : (
+            <ProductSwatch color={product.color} shape={product.shape} size={220} />
+          )}
         </div>
         <div className="product-detail-info">
           <p className="hero-label">{product.collection}</p>

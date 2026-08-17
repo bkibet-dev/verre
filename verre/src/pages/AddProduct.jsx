@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useProducts } from '../components/useProduct';
+import { useProducts } from '../context/ProductsContext';
 import '../components/AddProduct.css';
 import Navbar from '../components/Navbar';
 
@@ -15,7 +15,8 @@ const emptyForm = {
     frameType: 'Full-Rim',
     shape: 'Rectangle',
     size: '',
-    color: ''
+    color: '#242424',
+    image: ''
 };
 
 function validate(form) {
@@ -42,6 +43,18 @@ export default function AddProduct() {
         setForm({ ...form, [field]: e.target.value });
     };
 
+    const updateImage = (file) => {
+        if (!file) {
+            setForm((current) => ({ ...current, image: '' }));
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = () => {
+            setForm((current) => ({ ...current, image: reader.result }));
+        };
+        reader.readAsDataURL(file);
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const nextErrors = validate(form);
@@ -58,10 +71,10 @@ export default function AddProduct() {
             shape: form.shape,
             size: form.size,
             color: form.color.trim(),
+            image: form.image,
         };
 
         addProduct(product);
-        console.log('Product added successfully',product);
         setShowToast(true);
         setTimeout(() => navigate(`/products`), 1000);
     };
@@ -80,6 +93,20 @@ export default function AddProduct() {
                 <p>Fill out the form below to add a new product to the catalog.</p>
             </div>
             <form className="product-form" onSubmit={handleSubmit}>
+                <div className="form-field">
+                    <label htmlFor="image">Image</label>
+                    <div className="image-upload">
+                        {form.image && (
+                            <img src={form.image} alt="Preview" className="image-preview" />
+                        )}
+                        <input
+                            id="image"
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => updateImage(e.target.files[0])}
+                        />
+                    </div>
+                </div>
                 <div className="form-field">
                     <label htmlFor="name">Name</label>
                     <input id="name" type="text" placeholder="Name" value={form.name} onChange={update('name')} />
@@ -126,8 +153,11 @@ export default function AddProduct() {
                     </div>
                     <div className="form-field">
                         <label htmlFor="color">Color</label>
-                        <input id="color" type="text" placeholder="Color" value={form.color} onChange={update('color')} />
-                            {errors.color && <span className="error">{errors.color}</span>}
+                        <div className="color-field">
+                            <input id="color" type="color" value={form.color} onChange={update('color')} />
+                            <span>{form.color}</span>
+                        </div>
+                        {errors.color && <span className="error">{errors.color}</span>}
                     </div>
                 </div>
                 <div className="form-actions">

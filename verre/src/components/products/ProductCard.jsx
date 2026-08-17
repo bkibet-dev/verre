@@ -15,7 +15,11 @@ function ProductCard({ product }) {
   return (
     <article className="product-card">
       <Link to={`/products/${product.id}`} className="product-card-media">
-        <ProductSwatch color={product.color} shape={product.shape} />
+        {product.image ? (
+          <img src={product.image} alt={product.name} className="product-image" />
+        ) : (
+          <ProductSwatch color={product.color} shape={product.shape} />
+        )}
       </Link>
 
       <div className="product-card-body">

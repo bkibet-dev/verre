@@ -1,8 +1,23 @@
 import { COLLECTIONS, FRAME_TYPES, SHAPES } from '../../hooks/useProductForm';
 
-function ProductForm({ form, errors, update, onSubmit, onCancel, submitLabel }) {
+function ProductForm({ form, errors, update, updateImage, onSubmit, onCancel, submitLabel }) {
   return (
     <form className="product-form" onSubmit={onSubmit}>
+      <div className="form-field">
+        <label htmlFor="image">Image</label>
+        <div className="image-upload">
+          {form.image && (
+            <img src={form.image} alt="Preview" className="image-preview" />
+          )}
+          <input
+            id="image"
+            type="file"
+            accept="image/*"
+            onChange={(e) => updateImage(e.target.files[0])}
+          />
+        </div>
+      </div>
+
       <div className="form-field">
         <label htmlFor="name">Name</label>
         <input id="name" type="text" placeholder="Name" value={form.name} onChange={update('name')} />
