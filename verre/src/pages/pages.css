@@ -1,0 +1,20 @@
+.page-content {
+  max-width: 800px;
+  margin: 60px auto;
+  padding: 0 32px;
+  min-height: calc(100vh - 300px);
+}
+
+.page-content h1 {
+  font-size: 48px;
+  color: #29415b;
+  margin-bottom: 32px;
+  font-weight: 700;
+}
+
+.page-content p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #52758c;
+  margin-bottom: 24px;
+}

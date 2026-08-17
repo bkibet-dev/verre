@@ -1,0 +1,82 @@
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 32px;
+    border-bottom: 1px solid #e2dcd5;
+    background: #f5f0eb;
+}
+
+.logo {
+    color: #29415b;
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+}
+
+.admin-nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.catalog-link {
+    border: none;
+    background: transparent;
+    color: #52758c;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.catalog-link:hover {
+    color: #30445c;
+}
+
+.header-add-button {
+    border: none;
+    border-radius: 4px;
+    padding: 15px 25px;
+    background: #30445c;
+    color: white;
+    font-size: 19px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s ease;
+}
+
+.header-add-button:hover {
+    background: #25384e;
+}
+
+@media (max-width: 700px) {
+    .admin-header {
+        height: auto;
+        padding: 24px;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .logo {
+        font-size: 32px;
+        flex-basis: 100%;
+    }
+
+    .admin-nav {
+        gap: 12px;
+        width: 100%;
+    }
+
+    .catalog-link {
+        font-size: 16px;
+    }
+
+    .header-add-button {
+        padding: 12px 16px;
+        font-size: 15px;
+        flex: 1;
+    }
+}
