@@ -10,8 +10,7 @@ describe('SearchBar', () => {
         <SearchBar />
       </ProductProvider>
     );
-
     const input = screen.getByPlaceholderText('Search products...');
-    expect(input).toBeInTheDocument();
+     expect(input).toBeInTheDocument();
   });
 });
