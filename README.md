@@ -113,11 +113,3 @@ src/
 ├── App.jsx
 └── main.jsx
 ```
-
-## Live Demo
-
-[Add deployed link here once available]
-
-## Contributors
-
-[List team members and their areas of ownership here]
