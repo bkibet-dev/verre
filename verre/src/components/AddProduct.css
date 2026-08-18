@@ -144,12 +144,17 @@ body {
     border-color: #c8bfb5;
 }
 
-.success-toast {
-    margin-top: 20px;
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 9999;
     padding: 14px 18px;
     border-radius: 4px;
     background: #edf5ef;
     color: #3f6848;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
     font-size: 16px;
     animation: slideIn 0.3s ease;
 }
