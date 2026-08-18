@@ -4,8 +4,7 @@ import Navbar from '../components/Navbar';
 
 export default function ProductCatalog() {
   return (
-    <>
-    <Navbar />
+    <> 
     <div className="product-catalog-page">
       <SearchBar />
       <ProductList />
