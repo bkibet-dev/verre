@@ -44,8 +44,8 @@ export default function AddProduct() {
         const nextErrors = validate(form);
         setErrors(nextErrors);
         if (Object.keys(nextErrors).length) {
-            setToast('Please fix the errors in the form.');
-            setTimeout(() => setToast(''), 2500);
+            setShowToast('Please fix the errors in the form.');
+            setTimeout(() => setShowToast(''), 2500);
             return;
         }
         try {
@@ -58,11 +58,11 @@ export default function AddProduct() {
                 size: form.size.trim(),
                 color: form.color.trim()
             });
-            setToast('Product added successfully!');
+            setShowToast('Product added successfully!');
             setTimeout(() => navigate('/products'), 1000);
         } catch (error) {
             console.error(error);
-            setToast('Something went wrong. Please try again.');
+            setShowToast('Something went wrong. Please try again.');
             setIsSubmitting(false);
         }
     };
@@ -70,14 +70,14 @@ export default function AddProduct() {
     const handleCancel = () => {
         setForm(emptyForm);
         setErrors({});
-        setToast('');
+        setShowToast('');
         navigate('/addproduct')
     }
 
     return (
         <>
         <Navbar />
-        {toast && <div className='toast'>{toast}</div>}
+        {showToast && <div className='toast'>{showToast}</div>}
         <div className="add-product-page">
             <div className="page-heading">
                 <h1>Add a product</h1>
