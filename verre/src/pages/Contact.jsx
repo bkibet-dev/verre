@@ -4,7 +4,6 @@ import Footer from '../components/Footer';
 function Contact() {
   return (
     <>
-      <Navbar />
       <main className="page-content">
         <h1>Contact Verre</h1>
 

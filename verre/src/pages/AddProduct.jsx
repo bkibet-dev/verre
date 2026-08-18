@@ -74,7 +74,6 @@ export default function AddProduct() {
 
     return (
         <>
-        <Navbar />
         <div className="add-product-page">
             <div className="page-heading">
                 <h1>Add a product</h1>
