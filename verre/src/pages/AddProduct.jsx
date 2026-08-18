@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProducts } from '../context/ProductContext';
 import '../components/AddProduct.css';
-import Navbar from '../components/Navbar';
 
 const collections = ['Classic', 'Modern Minimalist', 'Retro & Vintage', 'Sports Active'];
 const frameTypes = ['Full-Rim', 'Half-Rim', 'Rimless'];
@@ -76,7 +75,6 @@ export default function AddProduct() {
 
     return (
         <>
-        <Navbar />
         {showToast && <div className='toast'>{showToast}</div>}
         <div className="add-product-page">
             <div className="page-heading">
