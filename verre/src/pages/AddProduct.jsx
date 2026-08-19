@@ -21,11 +21,8 @@ const emptyForm = {
 function validate(form) {
     const errors = {};
     if (!form.name.trim()) errors.name = 'Give the piece a name';
-    if (!form.collection) errors.collection = 'Select a collection';
     if (!form.price || Number.isNaN(Number(form.price)) || Number(form.price) < 0) 
         errors.price = 'Enter a price';
-    if (!form.frameType) errors.frameType = 'Select a frame type';
-    if (!form.shape) errors.shape = 'Select a shape';
     if (!form.size.trim()) errors.size = 'Enter a size';
     if (!form.color.trim()) errors.color = 'Enter a color';
     return errors;
@@ -34,47 +31,53 @@ function validate(form) {
 export default function AddProduct() {
     const [form, setForm] = useState(emptyForm);
     const [errors, setErrors] = useState({});
-    const [showToast, setShowToast] = useState(false);
+    const [showToast, setShowToast] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const { addProduct } = useProducts();
     const navigate = useNavigate();
 
-    const update = (field) => (e) => {
-        setForm({ ...form, [field]: e.target.value });
-    };
+    const update = (field) => (e) =>
+        setForm({...form, [field]: e.target.value });
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const nextErrors = validate(form);
         setErrors(nextErrors);
-        if (Object.keys(nextErrors).length > 0)
+        if (Object.keys(nextErrors).length) {
+            setShowToast('Please fix the errors in the form.');
+            setTimeout(() => setShowToast(''), 2500);
             return;
-
-        const product = {
-            id: Date.now(),
-            name: form.name.trim(),
-            collection: form.collection,
-            price: Number(form.price),
-            frameType: form.frameType,
-            shape: form.shape,
-            size: form.size,
-            color: form.color.trim(),
-        };
-
-        addProduct(product);
-        console.log('Product added successfully',product);
-        setShowToast(true);
-        setTimeout(() => navigate(`/products`), 1000);
+        }
+        try {
+            setIsSubmitting(true);
+            addProduct({
+                id: Date.now(),
+                ...form,
+                name: form.name.trim(),
+                price: Number(form.price),
+                size: form.size.trim(),
+                color: form.color.trim()
+            });
+            setShowToast('Product added successfully!');
+            setTimeout(() => navigate('/products'), 1000);
+        } catch (error) {
+            console.error(error);
+            setShowToast('Something went wrong. Please try again.');
+            setIsSubmitting(false);
+        }
     };
 
     const handleCancel = () => {
-        navigate('/addproduct');
         setForm(emptyForm);
-        setShowToast(false);
+        setErrors({});
+        setShowToast('');
+        navigate('/addproduct')
     }
 
     return (
         <>
         <Navbar />
+        {showToast && <div className='toast'>{showToast}</div>}
         <div className="add-product-page">
             <div className="page-heading">
                 <h1>Add a product</h1>
@@ -93,11 +96,9 @@ export default function AddProduct() {
                             <option key={collection} value={collection}>{collection}</option>
                         ))}
                     </select>
-                    {errors.collection && <span className="error">{errors.collection}</span>}
                 </div>
                 <div className="form-field">
                     <label htmlFor="price">Price</label>
-                    {errors.price && <span className="error">{errors.price}</span>}
                     <input id="price" type="number" placeholder="Price" value={form.price} onChange={update('price')} />
                     {errors.price && <span className="error">{errors.price}</span>}
                 </div>
@@ -108,7 +109,6 @@ export default function AddProduct() {
                         <option key={frameType}>{frameType}</option>
                     ))}
                     </select>
-                    {errors.frameType && <span className="error">{errors.frameType}</span>}
                 </div>
                 <div className="form-field">
                     <label htmlFor="shape">Shape</label>
@@ -117,7 +117,6 @@ export default function AddProduct() {
                             <option key={shape}>{shape}</option>
                         ))}
                     </select>
-                    {errors.shape && <span className="error">{errors.shape}</span>}
                 </div>
                 <div className="form-row">
                     <div className="form-field">
@@ -135,7 +134,6 @@ export default function AddProduct() {
                     <button type="submit" className="primary-button">Add Product</button>
                     <button type="button" className="secondary-button" onClick={handleCancel}>Cancel</button>
                 </div>
-                {showToast && (<div className="success-toast">Product added successfully!</div>)}
             </form>
         </div>
         </>
