@@ -62,6 +62,31 @@ describe('AddProduct', () => {
       })
     );
   });
+   it('shows an error when adding a product fails', () => {
+  addProduct.mockImplementationOnce(() => {
+    throw new Error('Failed to add product');
+  });
+  render(<AddProduct />);
+  fireEvent.change(screen.getByLabelText('Name'), {
+    target: { value: 'Classic Glasses' },
+  });
+  fireEvent.change(screen.getByLabelText('Price'), {
+    target: { value: '100' },
+  });
+  fireEvent.change(screen.getByLabelText('Size'), {
+    target: { value: 'Medium' },
+  });
+  fireEvent.change(screen.getByLabelText('Color'), {
+    target: { value: 'Black' },
+  });
+
+  fireEvent.click(screen.getByText('Add Product'));
+
+  expect(addProduct).toHaveBeenCalled();
+  expect(
+    screen.getByText('Something went wrong. Please try again.')
+  ).toBeInTheDocument();
+});
   it('cancels and navigates back', () => {
     render(<AddProduct />);
     fireEvent.click(screen.getByText('Cancel'));
